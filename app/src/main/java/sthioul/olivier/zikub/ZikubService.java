@@ -19,6 +19,6 @@ public interface ZikubService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    @GET("api.php")
+    @GET("api.php?service=login")
     Call<User> getUser(@Query("user") String pseudo , @Query("password") String password );
 }

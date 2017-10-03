@@ -1,0 +1,65 @@
+package sthioul.olivier.zikub;
+
+import android.app.Application;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+
+import com.deezer.sdk.network.connect.DeezerConnect;
+import com.deezer.sdk.network.request.event.DeezerError;
+import com.deezer.sdk.player.AlbumPlayer;
+import com.deezer.sdk.player.exception.TooManyPlayersExceptions;
+import com.deezer.sdk.player.networkcheck.WifiAndMobileNetworkStateChecker;
+
+public class MainActivity extends AppCompatActivity  {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        FrameLayout f = (FrameLayout) findViewById(R.id.image5);
+        f.bringToFront();
+
+        // replace with your own Application ID
+        String applicationID = "254802";
+        DeezerConnect deezerConnect = new DeezerConnect(this, applicationID);
+        Application app =  getApplication();
+        // create the player
+        try {
+            final AlbumPlayer albumPlayer = new AlbumPlayer(app, deezerConnect, new WifiAndMobileNetworkStateChecker());
+            // start playing music
+            long albumId = 89142;
+            albumPlayer.playAlbum(albumId);
+
+            ImageButton playButton = (ImageButton) findViewById(R.id.playButton);
+            playButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    albumPlayer.pause();
+
+                }
+
+            });
+
+// ...
+
+// to make sure the player is stopped (for instance when the activity is closed)
+
+        } catch ( TooManyPlayersExceptions e){
+
+        } catch ( DeezerError e) {
+
+        }
+
+
+
+
+
+        //Log.e("position",Integer.toString(location));
+    }
+}
