@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import com.deezer.sdk.network.connect.DeezerConnect;
 import com.deezer.sdk.network.request.event.DeezerError;
 import com.deezer.sdk.player.AlbumPlayer;
+import com.deezer.sdk.player.TrackPlayer;
+import com.deezer.sdk.player.event.PlayerState;
 import com.deezer.sdk.player.exception.TooManyPlayersExceptions;
 import com.deezer.sdk.player.networkcheck.WifiAndMobileNetworkStateChecker;
 
@@ -31,16 +33,20 @@ public class MainActivity extends AppCompatActivity  {
         Application app =  getApplication();
         // create the player
         try {
-            final AlbumPlayer albumPlayer = new AlbumPlayer(app, deezerConnect, new WifiAndMobileNetworkStateChecker());
+            final TrackPlayer trackPlayer = new TrackPlayer(app, deezerConnect, new WifiAndMobileNetworkStateChecker());
             // start playing music
-            long albumId = 89142;
-            albumPlayer.playAlbum(albumId);
+            long trackId = 677232;
+            trackPlayer.playTrack(trackId);
 
             ImageButton playButton = (ImageButton) findViewById(R.id.playButton);
             playButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    albumPlayer.pause();
+                    if(trackPlayer.getPlayerState() == PlayerState.PLAYING){
+                        trackPlayer.pause();
+                    } else {
+                        trackPlayer.play();
+                    }
 
                 }
 
