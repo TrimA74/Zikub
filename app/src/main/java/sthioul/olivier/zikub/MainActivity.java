@@ -1,6 +1,7 @@
 package sthioul.olivier.zikub;
 
 import android.app.Application;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +19,7 @@ import com.deezer.sdk.player.event.PlayerState;
 import com.deezer.sdk.player.exception.TooManyPlayersExceptions;
 import com.deezer.sdk.player.networkcheck.WifiAndMobileNetworkStateChecker;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +38,18 @@ public class MainActivity extends AppCompatActivity  {
             // start playing music
             long trackId = 677232;
             trackPlayer.playTrack(trackId);
+            trackPlayer.pause();
 
-            ImageButton playButton = (ImageButton) findViewById(R.id.playButton);
+            final ImageButton playButton = (ImageButton) findViewById(R.id.playButton);
             playButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(trackPlayer.getPlayerState() == PlayerState.PLAYING){
                         trackPlayer.pause();
+                        playButton.setImageResource(android.R.drawable.ic_media_play);
                     } else {
                         trackPlayer.play();
+                        playButton.setImageResource(android.R.drawable.ic_media_pause);
                     }
 
                 }
@@ -67,5 +71,10 @@ public class MainActivity extends AppCompatActivity  {
 
 
         //Log.e("position",Integer.toString(location));
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri){
+
     }
 }
