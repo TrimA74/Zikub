@@ -16,17 +16,17 @@
             android:id="@+id/FriendsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_menu_allfriends" />
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_group_black_24dp" />
 
         <ImageButton
             android:id="@+id/musicButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_menu_music" />
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_music_note_black_24dp" />
 
     </LinearLayout>
 </FrameLayout>
