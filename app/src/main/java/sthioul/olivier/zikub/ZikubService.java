@@ -1,5 +1,7 @@
 package sthioul.olivier.zikub;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,4 +23,8 @@ public interface ZikubService {
 
     @GET("api.php?service=login")
     Call<User> getUser(@Query("user") String pseudo , @Query("password") String password );
+
+
+    @GET("api.php?service=loadFriends")
+    Call<List<User>> getFriends(@Query("user") String pseudo);
 }
