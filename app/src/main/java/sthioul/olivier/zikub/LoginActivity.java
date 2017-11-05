@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Id to identity READ_CONTACTS permission request.
      */
+    private GlobalClass globalContext;
+
     private static final int REQUEST_READ_CONTACTS = 0;
 
     // UI references.
@@ -74,6 +76,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        this.globalContext = (GlobalClass) getApplicationContext();
     }
 
     private void populateAutoComplete() {
@@ -171,6 +175,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         mPasswordView.setError("Login info incorrect");
                         mPasswordView.requestFocus();
                     } else {
+                        globalContext.setUser(user);
                         Log.e("User",user.getUsername());
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
