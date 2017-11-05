@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
     private Handler myHandler = new Handler();
     private TextView textDuration,textTimer,textTitle;
     private ImageButton playButton;
+    private GlobalClass globalContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +71,17 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
         seekbar.setOnSeekBarChangeListener(this);
 
 
+        this.globalContext = (GlobalClass) getApplicationContext();
+        final User user = this.globalContext.getUser();
 
         this.musics = new ArrayList<>();
         mediaPlayer = new MediaPlayer();
 
-        this.musics.add(new Music((ImageButton) findViewById(R.id.currentImageMusic) , 677232));
-        this.musics.add(new Music((ImageButton) findViewById(R.id.music1) , 116287436));
-        this.musics.add(new Music((ImageButton) findViewById(R.id.music3) , 3148009));
-        this.musics.add(new Music((ImageButton) findViewById(R.id.music4) , 56889651));
-        this.musics.add(new Music((ImageButton) findViewById(R.id.music2) , 93087054));
+        this.musics.add(new Music((ImageButton) findViewById(R.id.currentImageMusic) , user.getPlaylist().get(0)));
+        this.musics.add(new Music((ImageButton) findViewById(R.id.music1) , user.getPlaylist().get(1)));
+        /*this.musics.add(new Music((ImageButton) findViewById(R.id.music3) , user.getPlaylist().get(2)));
+        this.musics.add(new Music((ImageButton) findViewById(R.id.music4) , user.getPlaylist().get(3)));
+        this.musics.add(new Music((ImageButton) findViewById(R.id.music2) , user.getPlaylist().get(4)));*/
 
         for(final Music m : this.musics){
             DeezerRequest request = DeezerRequestFactory.requestTrack(m.getId());
