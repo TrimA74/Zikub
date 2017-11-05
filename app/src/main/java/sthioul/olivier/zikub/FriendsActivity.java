@@ -1,10 +1,13 @@
 package sthioul.olivier.zikub;
 
 
+import android.app.Application;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.List;
@@ -34,8 +37,8 @@ public class FriendsActivity extends AppCompatActivity implements MenuFragment.O
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                Toast.makeText(FriendsActivity.this, "coucou",Toast.LENGTH_LONG).show();
-                Toast.makeText(FriendsActivity.this, response.body().toString(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(FriendsActivity.this, "coucou",Toast.LENGTH_LONG).show();
+                //Toast.makeText(FriendsActivity.this, response.body().toString(),Toast.LENGTH_LONG).show();
                 //Log.i("friends", response.body().get(0).getUsername());
                 user.setFriends(response.body());
 
@@ -50,6 +53,8 @@ public class FriendsActivity extends AppCompatActivity implements MenuFragment.O
         });
 
 
+
+
     }
 
     @Override
@@ -61,6 +66,17 @@ public class FriendsActivity extends AppCompatActivity implements MenuFragment.O
     private void displayFriends(){
         FriendAdapter adapter = new FriendAdapter(FriendsActivity.this, this.globalContext.getUser().getFriends());
         this.listViewFriends.setAdapter(adapter);
+
+        this.listViewFriends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(FriendsActivity.this,  FriendsActivity.this.globalContext.getUser().getFriends().get(position).getUsername() ,Toast.LENGTH_LONG).show();
+
+
+            }
+        });
     }
+
+
 }
 
