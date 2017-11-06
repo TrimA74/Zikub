@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
         mediaPlayer = new MediaPlayer();
 
         /*
-        * on crée des objetcs Music avec une ImageButton et un ID de music
+        * on crée des objects Music avec une ImageButton et un ID de music
          */
         for (int i=1; i < user.getPlaylist().size()+1;i++){
             String buttonID = "music" + i ;
@@ -89,7 +89,15 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
         for(final Music m : this.musics){
             DeezerRequest request = DeezerRequestFactory.requestTrack(m.getId());
             request.setId(Integer.toString(m.getId()));
-
+            m.getImage().setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    /*
+                    * TODO open new activity where u can search a new music
+                    */
+                    return true;
+                }
+            });
             m.getImage().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -224,5 +232,10 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
 
         // update timer progress again
         myHandler.postDelayed(UpdateSongTime, 100);
+    }
+    /* on fait rien */
+    @Override
+    public void onBackPressed() {
+
     }
 }
