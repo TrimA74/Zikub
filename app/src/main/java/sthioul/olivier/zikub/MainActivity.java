@@ -77,11 +77,14 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
         this.musics = new ArrayList<>();
         mediaPlayer = new MediaPlayer();
 
-        this.musics.add(new Music((ImageButton) findViewById(R.id.currentImageMusic) , user.getPlaylist().get(0)));
-        this.musics.add(new Music((ImageButton) findViewById(R.id.music1) , user.getPlaylist().get(1)));
-        /*this.musics.add(new Music((ImageButton) findViewById(R.id.music3) , user.getPlaylist().get(2)));
-        this.musics.add(new Music((ImageButton) findViewById(R.id.music4) , user.getPlaylist().get(3)));
-        this.musics.add(new Music((ImageButton) findViewById(R.id.music2) , user.getPlaylist().get(4)));*/
+        /*
+        * on crée des objetcs Music avec une ImageButton et un ID de music
+         */
+        for (int i=1; i < user.getPlaylist().size()+1;i++){
+            String buttonID = "music" + i ;
+            int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+            this.musics.add(new Music ( (ImageButton) findViewById(resID), user.getPlaylist().get(i-1)));
+        }
 
         for(final Music m : this.musics){
             DeezerRequest request = DeezerRequestFactory.requestTrack(m.getId());
