@@ -27,4 +27,7 @@ public interface ZikubService {
 
     @GET("api.php?service=loadFriends")
     Call<List<User>> getFriends(@Query("user") String pseudo);
+
+    @GET("api.php?service=changemusic")
+    Call<Boolean> updateMusic(@Query("user") String pseudo, @Query("password") String password , @Query("oldmusic") int oldmusic , @Query("newmusic") long newmusic );
 }

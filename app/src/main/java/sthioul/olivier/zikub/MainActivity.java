@@ -1,6 +1,7 @@
 package sthioul.olivier.zikub;
 
 import android.app.Application;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.Image;
 import android.media.MediaPlayer;
@@ -95,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                     /*
                     * TODO open new activity where u can search a new music
                     */
+                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                    intent.putExtra("id",m.getId());
+                    startActivity(intent);
                     return true;
                 }
             });
