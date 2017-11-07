@@ -25,6 +25,8 @@ public class MenuFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private GlobalClass globalContext;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -56,6 +58,9 @@ public class MenuFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.globalContext = (GlobalClass) getActivity().getApplicationContext();
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -71,11 +76,13 @@ public class MenuFragment extends Fragment {
         musicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                globalContext.setCurrrentUser(globalContext.getUser());
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
+
         ImageButton friendsButton = (ImageButton) rootView.findViewById(R.id.FriendsButton);
         friendsButton.setOnClickListener(new View.OnClickListener() {
             @Override

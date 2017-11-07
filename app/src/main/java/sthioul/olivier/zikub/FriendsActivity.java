@@ -2,6 +2,7 @@ package sthioul.olivier.zikub;
 
 
 import android.app.Application;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,9 +71,11 @@ public class FriendsActivity extends AppCompatActivity implements MenuFragment.O
         this.listViewFriends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(FriendsActivity.this,  FriendsActivity.this.globalContext.getUser().getFriends().get(position).getUsername() ,Toast.LENGTH_LONG).show();
-
-
+                //Toast.makeText(FriendsActivity.this,  FriendsActivity.this.globalContext.getUser().getFriends().get(position).getUsername() ,Toast.LENGTH_LONG).show();
+                FriendsActivity.this.globalContext.setCurrrentUser(FriendsActivity.this.globalContext.getUser().getFriends().get(position));
+                Intent intent = new Intent(FriendsActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
             }
         });
     }
