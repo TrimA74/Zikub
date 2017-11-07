@@ -2,6 +2,7 @@ package sthioul.olivier.zikub;
 
 import android.app.Application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,10 @@ public class User {
     private List<User> friends;
 
 
+    public User(){
+        this.playlist = new ArrayList<>();
 
+    }
     public String getUsername() {
         return username;
     }

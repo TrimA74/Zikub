@@ -269,27 +269,32 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
 
             });
 
-            if(globalContext.getUser().getUsername().equals(globalContext.getCurrrentUser().getUsername())) {
-                for (int i = this.musics.size() + 1; i <= 5; i++) {
-                    String buttonID = "music" + i;
-                    int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-                    ImageButton img = (ImageButton) findViewById(resID);
-                    img.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
+
+
+            task.execute(request);
+
+
+        }
+
+        if(globalContext.getUser().getUsername().equals(globalContext.getCurrrentUser().getUsername())) {
+            Toast.makeText(getApplicationContext(), "bloublou", Toast.LENGTH_LONG).show();
+            for (int i = this.musics.size() + 1; i <= 5; i++) {
+                String buttonID = "music" + i;
+                int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+                ImageButton img = (ImageButton) findViewById(resID);
+                img.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
                         /*
                         * TODO open new activity where u can search a new music
                         */
-                            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                            intent.putExtra("id", 0);
-                            startActivity(intent);
-                            return true;
-                        }
-                    });
-                }
+                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        intent.putExtra("id", 0);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
             }
-
-            task.execute(request);
         }
 
         //Toast.makeText(MainActivity.this, "resume" ,Toast.LENGTH_LONG).show();
