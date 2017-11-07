@@ -198,18 +198,20 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
         for(final Music m : this.musics){
             DeezerRequest request = DeezerRequestFactory.requestTrack(m.getId());
             request.setId(Integer.toString(m.getId()));
-            m.getImage().setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    /*
-                    * TODO open new activity where u can search a new music
-                    */
-                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    intent.putExtra("id",m.getId());
-                    startActivity(intent);
-                    return true;
-                }
-            });
+            if(globalContext.getUser().getUsername().equals(globalContext.getCurrrentUser().getUsername())) {
+                m.getImage().setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        /*
+                        * TODO open new activity where u can search a new music
+                        */
+                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        intent.putExtra("id", m.getId());
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+            }
             m.getImage().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -266,6 +268,26 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                 }
 
             });
+
+            if(globalContext.getUser().getUsername().equals(globalContext.getCurrrentUser().getUsername())) {
+                for (int i = this.musics.size() + 1; i <= 5; i++) {
+                    String buttonID = "music" + i;
+                    int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+                    ImageButton img = (ImageButton) findViewById(resID);
+                    img.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                        /*
+                        * TODO open new activity where u can search a new music
+                        */
+                            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                            intent.putExtra("id", 0);
+                            startActivity(intent);
+                            return true;
+                        }
+                    });
+                }
+            }
 
             task.execute(request);
         }
