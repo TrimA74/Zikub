@@ -1,6 +1,7 @@
 package sthioul.olivier.zikub;
 
 import android.app.Application;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.Image;
 import android.media.MediaPlayer;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textDuration = (TextView)findViewById(R.id.textDuration);
@@ -71,92 +74,6 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
         seekbar.setOnSeekBarChangeListener(this);
 
 
-        this.globalContext = (GlobalClass) getApplicationContext();
-        final User user = this.globalContext.getUser();
-
-        this.musics = new ArrayList<>();
-        mediaPlayer = new MediaPlayer();
-
-        /*
-        * on crée des objects Music avec une ImageButton et un ID de music
-         */
-        for (int i=1; i < user.getPlaylist().size()+1;i++){
-            String buttonID = "music" + i ;
-            int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-            this.musics.add(new Music ( (ImageButton) findViewById(resID), user.getPlaylist().get(i-1)));
-        }
-
-        for(final Music m : this.musics){
-            DeezerRequest request = DeezerRequestFactory.requestTrack(m.getId());
-            request.setId(Integer.toString(m.getId()));
-            m.getImage().setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    /*
-                    * TODO open new activity where u can search a new music
-                    */
-                    return true;
-                }
-            });
-            m.getImage().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mediaPlayer.reset(); // if not the app crash
-                    Uri myUri = Uri.parse(m.getUrl()); // initialize Uri here
-                    try {
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        mediaPlayer.setDataSource(getApplicationContext(), myUri);
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                        playButton.setImageResource(android.R.drawable.ic_media_pause);
-
-                        finalTime = mediaPlayer.getDuration();
-                        startTime = mediaPlayer.getCurrentPosition();
-
-                        textDuration.setText(String.format(Locale.US,"0:%02d",
-                                TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
-                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
-                                                finalTime)))
-                        );
-
-                        textTimer.setText(String.format(Locale.US,"0:%02d",
-                                TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
-                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
-                                                startTime)))
-                        );
-                        textTitle.setText(m.getTitle() + " - " + m.getArtist());
-
-                        seekbar.setProgress((int)startTime);
-                        seekbar.setMax((int) finalTime);
-                        myHandler.postDelayed(UpdateSongTime,100);
-                        Toast.makeText(getApplicationContext(), "music ready", Toast.LENGTH_LONG).show();
-
-                    } catch (IOException e) {
-                            Log.e("error","something bad happen here");
-                    }
-                }
-            });
-            AsyncDeezerTask task = new AsyncDeezerTask(deezerConnect, new JsonRequestListener() {
-
-                public void onResult(Object result, Object requestId) {
-                    Track track = (Track) result;
-                    m.setUrl(track.getPreviewUrl());
-                    m.setTitle(track.getTitle());
-                    m.setArtist(track.getArtist().getName());
-                    String image_url = track.getAlbum().getMediumImageUrl();
-                    Picasso.with(getApplicationContext()).load(image_url).fit().centerCrop().into(m.getImage());
-                }
-
-                public void onUnparsedResult(String requestResponse, Object requestId) {
-                }
-
-                public void onException(Exception e, Object requestId) {
-                }
-
-            });
-
-            task.execute(request);
-        }
         /*  play/pause button */
         playButton = (ImageButton) findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -238,4 +155,120 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
     public void onBackPressed() {
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+        this.globalContext = (GlobalClass) getApplicationContext();
+        //final User user = this.globalContext.getUser();
+        User currentUser = this.globalContext.getCurrrentUser();
+
+        this.musics = new ArrayList<>();
+        mediaPlayer = new MediaPlayer();
+
+        int color[] = {Color.parseColor("#ff00dd"),
+                Color.parseColor("#ff6699"),
+                Color.parseColor("#ffcc00"),
+                Color.parseColor("#ffffbb"),
+                Color.parseColor("#ffff88")};
+
+        for (int i=1; i<=5; i++)
+        {
+            String buttonID = "music" + i ;
+            int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+            ImageButton imgButton  = (ImageButton) findViewById(resID);
+            imgButton.setImageDrawable(null);
+            imgButton.setBackgroundColor(color[i-1]);
+            imgButton.setOnClickListener(null);
+            imgButton.setOnLongClickListener(null);
+        }
+
+
+
+        for (int i=1; i < currentUser.getPlaylist().size()+1;i++){
+            String buttonID = "music" + i ;
+            int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+            this.musics.add(new Music ( (ImageButton) findViewById(resID), currentUser.getPlaylist().get(i-1)));
+
+        }
+        Toast.makeText(MainActivity.this, currentUser.getPlaylist().size()+"" ,Toast.LENGTH_LONG).show();
+
+        for(final Music m : this.musics){
+            DeezerRequest request = DeezerRequestFactory.requestTrack(m.getId());
+            request.setId(Integer.toString(m.getId()));
+            m.getImage().setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    /*
+                    * TODO open new activity where u can search a new music
+                    */
+                    return true;
+                }
+            });
+            m.getImage().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mediaPlayer.reset(); // if not the app crash
+                    Uri myUri = Uri.parse(m.getUrl()); // initialize Uri here
+                    try {
+                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        mediaPlayer.setDataSource(getApplicationContext(), myUri);
+                        mediaPlayer.prepare();
+                        mediaPlayer.start();
+                        playButton.setImageResource(android.R.drawable.ic_media_pause);
+
+                        finalTime = mediaPlayer.getDuration();
+                        startTime = mediaPlayer.getCurrentPosition();
+
+                        textDuration.setText(String.format(Locale.US,"0:%02d",
+                                TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
+                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
+                                                finalTime)))
+                        );
+
+                        textTimer.setText(String.format(Locale.US,"0:%02d",
+                                TimeUnit.MILLISECONDS.toSeconds((long) startTime) -
+                                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)
+                                                startTime)))
+                        );
+                        textTitle.setText(m.getTitle() + " - " + m.getArtist());
+
+                        seekbar.setProgress((int)startTime);
+                        seekbar.setMax((int) finalTime);
+                        myHandler.postDelayed(UpdateSongTime,100);
+                        Toast.makeText(getApplicationContext(), "music ready", Toast.LENGTH_LONG).show();
+
+                    } catch (IOException e) {
+                        Log.e("error","something bad happen here");
+                    }
+                }
+            });
+            AsyncDeezerTask task = new AsyncDeezerTask(deezerConnect, new JsonRequestListener() {
+
+                public void onResult(Object result, Object requestId) {
+                    Track track = (Track) result;
+                    m.setUrl(track.getPreviewUrl());
+                    m.setTitle(track.getTitle());
+                    m.setArtist(track.getArtist().getName());
+                    String image_url = track.getAlbum().getMediumImageUrl();
+                    Picasso.with(getApplicationContext()).load(image_url).fit().centerCrop().into(m.getImage());
+                }
+
+                public void onUnparsedResult(String requestResponse, Object requestId) {
+                }
+
+                public void onException(Exception e, Object requestId) {
+                }
+
+            });
+
+            task.execute(request);
+        }
+
+        //Toast.makeText(MainActivity.this, "resume" ,Toast.LENGTH_LONG).show();
+    }
+
+
+
 }
