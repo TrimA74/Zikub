@@ -30,4 +30,7 @@ public interface ZikubService {
 
     @GET("api.php?service=changemusic")
     Call<Boolean> updateMusic(@Query("user") String pseudo, @Query("password") String password , @Query("oldmusic") int oldmusic , @Query("newmusic") long newmusic );
+
+    @GET("api.php?service=register")
+    Call<User> register(@Query("user") String pseudo , @Query("password") String password );
 }

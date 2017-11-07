@@ -78,6 +78,47 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
 
         this.globalContext = (GlobalClass) getApplicationContext();
+
+        Button registerButton = (Button) findViewById(R.id.registerButton);
+        registerButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Store values at the time of the register attempt.
+                String pseudo = mEmailView.getText().toString();
+                String password = mPasswordView.getText().toString();
+
+                // Show a progress spinner, and kick off a background task to
+                // perform the user login attempt.
+                showProgress(true);
+                ZikubService service = ZikubService.retrofit.create(ZikubService.class);
+                Call<User> call = service.register(pseudo,password);
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        User user = response.body();
+                        if(user.getUsername()==""){
+                            showProgress(false);
+                            mPasswordView.setError("Login info incorrect");
+                            mPasswordView.requestFocus();
+                        } else {
+                            globalContext.setUser(user);
+                            globalContext.setCurrrentUser(user);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.e("","ça marche po");
+
+                    }
+                });
+
+
+            }
+        });
     }
 
     private void populateAutoComplete() {
@@ -122,7 +163,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
