@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
             this.musics.add(new Music ( (ImageButton) findViewById(resID), currentUser.getPlaylist().get(i-1)));
 
         }
-        Toast.makeText(MainActivity.this, currentUser.getPlaylist().size()+"" ,Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, currentUser.getPlaylist().size()+"" ,Toast.LENGTH_LONG).show();
 
         for(final Music m : this.musics){
             DeezerRequest request = DeezerRequestFactory.requestTrack(m.getId());
@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                         seekbar.setProgress((int)startTime);
                         seekbar.setMax((int) finalTime);
                         myHandler.postDelayed(UpdateSongTime,100);
-                        Toast.makeText(getApplicationContext(), "music ready", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "music ready", Toast.LENGTH_LONG).show();
 
                     } catch (IOException e) {
                         Log.e("error","something bad happen here");
@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
         }
 
         if(globalContext.getUser().getUsername().equals(globalContext.getCurrrentUser().getUsername())) {
-            Toast.makeText(getApplicationContext(), "bloublou", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "bloublou", Toast.LENGTH_LONG).show();
             for (int i = this.musics.size() + 1; i <= 5; i++) {
                 String buttonID = "music" + i;
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());

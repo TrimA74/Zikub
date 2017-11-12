@@ -194,7 +194,8 @@
             android:layout_height="53dp"
             android:layout_gravity="bottom"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="24dp" />
+            tools:layout_editor_absoluteY="24dp"
+            tools:layout="@layout/fragment_menu" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
