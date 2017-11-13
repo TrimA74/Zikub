@@ -28,6 +28,7 @@ public class ListFriendsFragment extends Fragment {
 
     private GlobalClass globalContext;
     private ListView listViewFriends;
+    private User user;
 
     public ListFriendsFragment() {
         // Required empty public constructor
@@ -44,7 +45,7 @@ public class ListFriendsFragment extends Fragment {
 
         ZikubService service = ZikubService.retrofit.create(ZikubService.class);
 
-        final User user = this.globalContext.getUser();
+        user = this.globalContext.getUser();
 
         this.listViewFriends = (ListView) rootView.findViewById(R.id.listFriends);
 

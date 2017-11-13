@@ -33,4 +33,10 @@ public interface ZikubService {
 
     @GET("api.php?service=register")
     Call<User> register(@Query("user") String pseudo , @Query("password") String password );
+
+    @GET("api.php?service=searchUser")
+    Call<List<String>> getnewFriends(@Query("query") String query);
+
+    @GET("api.php?service=inviteFriend")
+    Call<Boolean> addFriend(@Query("user") String pseudo, @Query("password") String password , @Query("friend") String ami);
 }
