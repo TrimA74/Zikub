@@ -9,12 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
         android:layout_weight="0.52"
         android:orientation="vertical"
         android:weightSum="1"
@@ -163,7 +157,10 @@
                 android:id="@+id/seekBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:colorControlActivated="#9b9a9a"
+                android:progressBackgroundTint="#ffffff"
+                android:progressTint="#00a6b9" />
 
             <TextView
                 android:id="@+id/textDuration"

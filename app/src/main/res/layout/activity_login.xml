@@ -40,8 +40,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_pseudo"
+                    android:textColorHint="@color/colorAccent"
+                    android:backgroundTint="@color/colorAccent"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    android:drawableBottom="#8b0000"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -55,7 +58,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
+                    android:textColorHint="@color/colorAccent"
                     android:imeActionId="@+id/login"
+                    android:background="@color/backActionColor"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
@@ -70,13 +75,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorAccent"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/registerButton"
+                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:textStyle="bold"
                 android:text="Register" />
 
         </LinearLayout>
