@@ -19,6 +19,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import static android.content.ContentValues.TAG;
 
 public class FriendsActivity extends AppCompatActivity implements MenuFragment.OnFragmentInteractionListener {
 
@@ -33,7 +34,7 @@ public class FriendsActivity extends AppCompatActivity implements MenuFragment.O
         /***
          * on mets ListFriendsFragment par défaut pour afficher la liste des amis
          */
-        changeFragment(new ListFriendsFragment(),false,false);
+        changeFragment(new ListFriendsFragment(),true,false);
 
         ImageButton notif = (ImageButton) findViewById(R.id.notifButton);
         /***
@@ -45,8 +46,8 @@ public class FriendsActivity extends AppCompatActivity implements MenuFragment.O
         notif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "youyou" ,Toast.LENGTH_LONG).show();
-                changeFragment(new FriendInvitationFragment(),false,false);
+                //Toast.makeText(getApplicationContext(), "youyou" ,Toast.LENGTH_LONG).show();
+                changeFragment(new FriendInvitationFragment(),true,false);
             }
         });
 
@@ -54,8 +55,8 @@ public class FriendsActivity extends AppCompatActivity implements MenuFragment.O
         friendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "youyou" ,Toast.LENGTH_LONG).show();
-                changeFragment(new ListFriendsFragment(),false,false);
+                //Toast.makeText(getApplicationContext(), "youyou" ,Toast.LENGTH_LONG).show();
+                changeFragment(new ListFriendsFragment(),true,false);
             }
         });
 
@@ -63,8 +64,8 @@ public class FriendsActivity extends AppCompatActivity implements MenuFragment.O
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "youyou" ,Toast.LENGTH_LONG).show();
-                changeFragment(new SearchFriendsFragment(),false,false);
+                //Toast.makeText(getApplicationContext(), "youyou" ,Toast.LENGTH_LONG).show();
+                changeFragment(new SearchFriendsFragment(),true,false);
             }
         });
 
@@ -100,6 +101,13 @@ public class FriendsActivity extends AppCompatActivity implements MenuFragment.O
                  * @fragment_container correspond à l'ID de tous nos fragments et de la frameLayout par défault qu'on a dans @activity_friends.xml
                  */
                 transaction.replace(R.id.fragment_container, frag, backStateName);
+
+                if (saveInBackstack) {
+                    Log.d(TAG, "Change Fragment: addToBackTack " + backStateName);
+                    transaction.addToBackStack(backStateName);
+                } else {
+                    Log.d(TAG, "Change Fragment: NO addToBackTack");
+                }
 
                 transaction.commit();
             } else {

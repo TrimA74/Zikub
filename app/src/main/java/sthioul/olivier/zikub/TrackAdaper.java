@@ -49,7 +49,7 @@ public class TrackAdaper extends ArrayAdapter<Track> {
         Track track = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
-        viewHolder.title.setText(track.getTitle());
+        viewHolder.title.setText(track.getTitle()+ " - " + track.getArtist().getName());
         return convertView;
     }
 

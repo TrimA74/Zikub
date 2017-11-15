@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/invitation"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:padding="7pt"
+        android:text="TextView"
+        android:textSize="15sp" />
+
+    <ImageButton
+        android:id="@+id/addFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/ic_add_circle_black_24dp" />
+
+</LinearLayout>

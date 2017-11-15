@@ -57,7 +57,7 @@ public class SearchFriendsFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                Call<List<String>> call = service.getnewFriends(s);
+                Call<List<String>> call = service.getnewFriends(s,user.getUsername(),user.getPassword());
                 call.enqueue(new Callback<List<String>>() {
                     @Override
                     public void onResponse(Call<List<String>> call, Response<List<String>> response) {

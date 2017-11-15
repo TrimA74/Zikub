@@ -5,4 +5,5 @@
     <color name="colorAccent">#a5d2ff</color>
     <color name="colorTitle">#ffffff</color>
     <color name="backActionColor">#2c3e50</color>
+    <color name="searchViewBack">#3f668c</color>
 </resources>

@@ -16,13 +16,15 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/searchViewBack"
+            style="@style/SearchViewStyle"
             android:hint="@string/prompt_search">
 
         </SearchView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="500dp"
             android:orientation="horizontal">
 
             <ListView
