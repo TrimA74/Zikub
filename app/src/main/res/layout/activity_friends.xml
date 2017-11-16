@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="sthioul.olivier.zikub.FriendsActivity"
-    tools:layout_editor_absoluteY="81dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,6 +29,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             app:srcCompat="@drawable/ic_notifications_black_24dp" />
+
         <ImageButton
             android:id="@+id/searchButton"
             android:layout_width="wrap_content"
@@ -82,9 +84,9 @@
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_gravity="bottom"
+            tools:layout="@layout/fragment_menu"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="24dp"
-            tools:layout="@layout/fragment_menu" />
+            tools:layout_editor_absoluteY="24dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="sthioul.olivier.zikub.SearchActivity">
 
 
@@ -14,10 +15,10 @@
 
         <SearchView
             android:id="@+id/searchView"
+            style="@style/SearchViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/searchViewBack"
-            style="@style/SearchViewStyle"
             android:hint="@string/prompt_search">
 
         </SearchView>
@@ -53,8 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_gravity="bottom"
+            tools:layout="@layout/fragment_menu"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="24dp"
-            tools:layout="@layout/fragment_menu" />
+            tools:layout_editor_absoluteY="24dp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

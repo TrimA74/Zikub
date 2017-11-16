@@ -37,6 +37,8 @@ import com.deezer.sdk.player.exception.TooManyPlayersExceptions;
 import com.deezer.sdk.player.networkcheck.WifiAndMobileNetworkStateChecker;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.net.URI;
 import java.sql.Time;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
     private ArrayList<Music> musics;
     private SeekBar seekbar;
     private DeezerConnect deezerConnect;
+    private TextView username;
     private double startTime = 0;
     private double finalTime = 0;
     private Handler myHandler = new Handler();
@@ -163,9 +166,17 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
+        username = (TextView) findViewById(R.id.userName);
+
         this.globalContext = (GlobalClass) getApplicationContext();
-        //final User user = this.globalContext.getUser();
+        final User user = this.globalContext.getUser();
         User currentUser = this.globalContext.getCurrrentUser();
+
+        if(currentUser.getUsername() == user.getUsername()){
+            username.setText("Your musics");
+        } else {
+            username.setText(currentUser.getUsername() + " musics");
+        }
 
         this.musics = new ArrayList<>();
         mediaPlayer = new MediaPlayer();

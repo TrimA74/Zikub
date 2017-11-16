@@ -4,6 +4,8 @@
     <!-- Strings related to login -->
     <string name="prompt_pseudo">Pseudo</string>
     <string name="search_hint">Search music</string>
+    <string name="welcom_sentences">Share your favourite music to your friends.</string>
+    <string name="terms">Terms &amp; conditions.</string>
     <string name="prompt_search">Search</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>

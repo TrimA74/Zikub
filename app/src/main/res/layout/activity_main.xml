@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     tools:context="sthioul.olivier.zikub.MainActivity">
 
     <LinearLayout
@@ -175,7 +176,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_height="70dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -184,15 +185,22 @@
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1">
 
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="TextView" />
+
         <fragment
             android:id="@+id/fooFragment"
             android:name="sthioul.olivier.zikub.MenuFragment"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_gravity="bottom"
+            tools:layout="@layout/fragment_menu"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="24dp"
-            tools:layout="@layout/fragment_menu" />
+            tools:layout_editor_absoluteY="24dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
