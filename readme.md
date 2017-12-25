@@ -3,7 +3,6 @@
 Zikub is a simple mobile application that enables  you to share your 5 prefered musics to your friend
 and listen theirs musics as well.
 
-
 ## Features
 - Register new account
 - Logging in
@@ -12,6 +11,9 @@ and listen theirs musics as well.
 - Search for new friends and send invitations
 - Accept new friends invitations
 - Listen musics's friends
+
+## Architecture
+![alt text](https://github.com/oyer24/Zikub/raw/master/screens/archi.png "Logging screen")
 
 ## Project depedencies
 - `deezer-sdk-0.11.2`
