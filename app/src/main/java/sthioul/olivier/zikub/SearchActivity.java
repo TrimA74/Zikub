@@ -104,7 +104,6 @@ public class SearchActivity extends AppCompatActivity implements MenuFragment.On
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 long newmusic = SearchActivity.this.listTrack.get(position).getId();
-                Toast.makeText(SearchActivity.this,  Long.toString(SearchActivity.this.listTrack.get(position).getId()) ,Toast.LENGTH_LONG).show();
                 ZikubService service = ZikubService.retrofit.create(ZikubService.class);
                 user.getPlaylist().remove(new Integer(idMusic));
                 user.getPlaylist().add( (int) newmusic);
@@ -113,12 +112,12 @@ public class SearchActivity extends AppCompatActivity implements MenuFragment.On
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         Boolean rep = response.body().booleanValue();
-                        Toast.makeText(SearchActivity.this, Boolean.toString(rep),Toast.LENGTH_LONG).show();
+                        Toast.makeText(SearchActivity.this,  "La musique a été ajouté/remplacé" ,Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(Call<Boolean> call, Throwable t) {
-                        Toast.makeText(SearchActivity.this, "error",Toast.LENGTH_LONG).show();
+                        Toast.makeText(SearchActivity.this, "La musique n'a pas été ajouté/remplacé",Toast.LENGTH_LONG).show();
                     }
                 });
 

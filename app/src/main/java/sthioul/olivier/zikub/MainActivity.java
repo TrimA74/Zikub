@@ -80,7 +80,9 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
         seekbar.setOnSeekBarChangeListener(this);
 
 
-        /*  play/pause button */
+        /***
+         * Play and pause setOnClickListener on @R.id.playButton
+         */
         playButton = (ImageButton) findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,12 +168,13 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
-        username = (TextView) findViewById(R.id.userName);
 
         this.globalContext = (GlobalClass) getApplicationContext();
-        final User user = this.globalContext.getUser();
-        User currentUser = this.globalContext.getCurrrentUser();
+        final User user = this.globalContext.getUser(); // get connected user
+        User currentUser = this.globalContext.getCurrrentUser(); // get the user who's musics are displayed
 
+
+        username = (TextView) findViewById(R.id.userName);
         if(currentUser.getUsername() == user.getUsername()){
             username.setText("Your musics");
         } else {
@@ -206,7 +209,6 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
             this.musics.add(new Music ( (ImageButton) findViewById(resID), currentUser.getPlaylist().get(i-1)));
 
         }
-        //Toast.makeText(MainActivity.this, currentUser.getPlaylist().size()+"" ,Toast.LENGTH_LONG).show();
 
         for(final Music m : this.musics){
             DeezerRequest request = DeezerRequestFactory.requestTrack(m.getId());
@@ -215,9 +217,6 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                 m.getImage().setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
-                        /*
-                        * TODO open new activity where u can search a new music
-                        */
                         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                         intent.putExtra("id", m.getId());
                         startActivity(intent);
@@ -256,7 +255,6 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                         seekbar.setProgress((int)startTime);
                         seekbar.setMax((int) finalTime);
                         myHandler.postDelayed(UpdateSongTime,100);
-                        //Toast.makeText(getApplicationContext(), "music ready", Toast.LENGTH_LONG).show();
 
                     } catch (IOException e) {
                         Log.e("error","something bad happen here");
@@ -288,9 +286,10 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
 
 
         }
-
+        /***
+         * if the musics displayed are the log user musics than add listener to let him change his musics
+         */
         if(globalContext.getUser().getUsername().equals(globalContext.getCurrrentUser().getUsername())) {
-            //Toast.makeText(getApplicationContext(), "bloublou", Toast.LENGTH_LONG).show();
             for (int i = this.musics.size() + 1; i <= 5; i++) {
                 String buttonID = "music" + i;
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
@@ -298,8 +297,8 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                 img.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
-                        /*
-                        * TODO open new activity where u can search a new music
+                        /***
+                        * open new activity where u can search a new music
                         */
                         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                         intent.putExtra("id", 0);
@@ -309,8 +308,6 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
                 });
             }
         }
-
-        //Toast.makeText(MainActivity.this, "resume" ,Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -324,6 +321,9 @@ public class MainActivity extends AppCompatActivity implements MenuFragment.OnFr
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            /***
+             * triggered when user click on disconnect button (arrow left button)
+             */
             case R.id.action_add:
                 globalContext.setUser(null);
                 globalContext.setCurrrentUser(null);

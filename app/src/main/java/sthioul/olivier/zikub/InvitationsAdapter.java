@@ -64,7 +64,7 @@ public class InvitationsAdapter extends ArrayAdapter<String> {
                             remove(getItem(position));
                             Boolean rep = response.body().booleanValue();
                             /***
-                             * TODO refresh friendFragment quand on accept une invitation
+                             * refresh friendFragment quand on accept une invitation
                              */
                             final FragmentTransaction ft = fM.beginTransaction();
                             ft.detach(f);

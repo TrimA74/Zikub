@@ -56,7 +56,7 @@ public class SearchFriendsAdapter extends ArrayAdapter<String> {
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             remove(getItem(position));
                             Boolean rep = response.body().booleanValue();
-                            Toast.makeText(getContext(), Boolean.toString(rep),Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Invitation has been sent",Toast.LENGTH_LONG).show();
                         }
 
                         @Override

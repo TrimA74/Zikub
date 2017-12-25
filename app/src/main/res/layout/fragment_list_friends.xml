@@ -9,15 +9,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1">
 
 
-        <ListView
-            android:id="@+id/listFriends"
+        <TextView
+            android:id="@+id/friendlist_title"
             android:layout_width="match_parent"
-            android:layout_height="500dp" />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center"
+            android:text="@string/friendslist_title"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/listFriends"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
 
     </LinearLayout>
